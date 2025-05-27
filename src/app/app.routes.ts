@@ -1,3 +1,14 @@
 import { Routes } from '@angular/router';
+import { CharacterModelComponent } from './character-model/character-model.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  {
+    path: '',
+    component: CharacterModelComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: ''
+  }
+];
