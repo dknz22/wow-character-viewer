@@ -1,22 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { generateModels } from 'wow-model-viewer';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-interface CharacterItem {
-  slot: number;
-  itemId: number;
-}
-
-interface Character {
-  race: number;
-  gender: number;
-  skin: number;
-  face: number;
-  hairStyle: number;
-  hairColor: number;
-  facialStyle: number;
-  items: CharacterItem[];
-}
+import { generateModels } from 'wow-model-viewer';
+import { CharacterService, Character } from './character.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-character-model',
@@ -25,33 +11,30 @@ interface Character {
   templateUrl: './character-model.component.html',
   styleUrls: ['./character-model.component.css']
 })
-export class CharacterModelComponent implements OnInit {
+export class CharacterModelComponent implements OnInit, OnDestroy {
   isLoading = true;
   error: string | null = null;
-  character: Character = {
-    race: 7,
-    gender: 1,
-    skin: 4,
-    face: 0,
-    hairStyle: 5,
-    hairColor: 5,
-    facialStyle: 5,
-    items: [
-      { slot: 1, itemId: 1170 },
-      { slot: 3, itemId: 4925 },
-      { slot: 5, itemId: 9575 },
-      { slot: 6, itemId: 25235 },
-      { slot: 7, itemId: 2311 },
-      { slot: 8, itemId: 21154 },
-      { slot: 9, itemId: 14618 },
-      { slot: 10, itemId: 9534 },
-      { slot: 15, itemId: 0 },
-      { slot: 21, itemId: 20379 },
-      { slot: 22, itemId: 28787 }
-    ]
-  };
+  character!: Character;
+  private subscription: Subscription;
 
-  ngOnInit(): void {
+  constructor(private characterService: CharacterService) {
+    this.subscription = this.characterService.character$.subscribe(character => {
+      this.character = character;
+      this.updateModel();
+    });
+  }
+
+  ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  private updateModel(): void {
+    if (!this.character) {
+      return;
+    }
+
     try {
       this.isLoading = true;
       const itemsArray = this.character.items.map(item => [item.slot, item.itemId]);

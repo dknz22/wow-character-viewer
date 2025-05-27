@@ -1,0 +1,22 @@
+{
+  "race": 7,
+  "gender": 1,
+  "skin": 4,
+  "face": 0,
+  "hairStyle": 5,
+  "hairColor": 5,
+  "facialStyle": 5,
+  "items": [
+    { "slot": 1, "itemId": 1170 },
+    { "slot": 3, "itemId": 4925 },
+    { "slot": 5, "itemId": 9575 },
+    { "slot": 6, "itemId": 25235 },
+    { "slot": 7, "itemId": 2311 },
+    { "slot": 8, "itemId": 21154 },
+    { "slot": 9, "itemId": 14618 },
+    { "slot": 10, "itemId": 9534 },
+    { "slot": 15, "itemId": 0 },
+    { "slot": 21, "itemId": 20379 },
+    { "slot": 22, "itemId": 28787 }
+  ]
+} 
