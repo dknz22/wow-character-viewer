@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { CharacterModelComponent } from './character-model/character-model.component';
+import { CharacterModelComponent } from './components/character-model/character-model.component';
 
 export const routes: Routes = [
   {

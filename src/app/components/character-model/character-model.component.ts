@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { generateModels } from 'wow-model-viewer';
-import { CharacterService, Character } from './character.service';
-import { InventoryService, ItemSlot } from './inventory.service';
+import { CharacterService, Character } from '../../services/character.service';
+import { InventoryService, ItemSlot } from '../../services/inventory.service';
 import { Subscription } from 'rxjs';
 
 @Component({
