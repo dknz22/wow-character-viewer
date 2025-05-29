@@ -7,5 +7,35 @@
     {{ error }}
   </div>
 
-  <div *ngIf="!isLoading && !error" id="model_3d" class="model-container"></div>
+  <div *ngIf="!isLoading && !error" class="character-view">
+    <div class="character-section">
+      <div class="armor-column left">
+        <div class="armor-slot" *ngFor="let slot of leftArmorSlots">
+          <div class="slot-frame">
+            <img [src]="slot.icon" [alt]="slot.name" class="item-icon">
+          </div>
+        </div>
+      </div>
+
+      <div class="character-column">
+        <div id="model_3d" class="model-container"></div>
+      </div>
+
+      <div class="armor-column right">
+        <div class="armor-slot" *ngFor="let slot of rightArmorSlots">
+          <div class="slot-frame">
+            <img [src]="slot.icon" [alt]="slot.name" class="item-icon">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="weapons-section">
+      <div class="weapon-slot" *ngFor="let weapon of weapons">
+        <div class="slot-frame">
+          <img [src]="weapon.icon" [alt]="weapon.name" class="item-icon">
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

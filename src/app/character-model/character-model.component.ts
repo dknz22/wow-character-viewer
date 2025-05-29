@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { generateModels } from 'wow-model-viewer';
 import { CharacterService, Character } from './character.service';
+import { InventoryService, ItemSlot } from './inventory.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -17,14 +18,29 @@ export class CharacterModelComponent implements OnInit, OnDestroy {
   character!: Character;
   private subscription: Subscription;
 
-  constructor(private characterService: CharacterService) {
+  leftArmorSlots: ItemSlot[] = [];
+  rightArmorSlots: ItemSlot[] = [];
+  weapons: ItemSlot[] = [];
+
+  constructor(
+    private characterService: CharacterService,
+    private inventoryService: InventoryService
+  ) {
     this.subscription = this.characterService.character$.subscribe(character => {
       this.character = character;
       this.updateModel();
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.leftArmorSlots = this.inventoryService.getLeftArmorSlots();
+    this.rightArmorSlots = this.inventoryService.getRightArmorSlots();
+    this.weapons = this.inventoryService.getWeapons();
+
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 2000);
+  }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
